@@ -37,10 +37,10 @@
   <ItemGroup>
     <Compile Include="Vehicles\ElectricCar.cs" />
     <Compile Include="ElectricEngine.cs" />
-    <Compile Include="Vehicles\ElectricMoto.cs" />
+    <Compile Include="Vehicles\ElectricMotorcycle.cs" />
     <Compile Include="Vehicles\FuelCar.cs" />
     <Compile Include="FuelEngine.cs" />
-    <Compile Include="Vehicles\FuelMoto.cs" />
+    <Compile Include="Vehicles\FuelMotorcycle.cs" />
     <Compile Include="Vehicles\Track.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class ElectricMoto : Vehicle
+    public class FuelMotorcycle : Vehicle
     {
+
     }
 }
