@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GarageLogic
+namespace Ex03.GarageLogic
 {
-    class Wheel
+    public class Wheel
     {
         string m_Brand;
-
+        
     }
 }

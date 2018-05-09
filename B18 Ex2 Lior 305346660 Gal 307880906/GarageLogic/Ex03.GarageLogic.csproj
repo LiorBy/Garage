@@ -7,8 +7,8 @@
     <ProjectGuid>{8BB7B620-2B94-4700-A39B-FA650862C292}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GarageLogic</RootNamespace>
-    <AssemblyName>GarageLogic</AssemblyName>
+    <RootNamespace>Ex03.GarageLogic</RootNamespace>
+    <AssemblyName>Ex03.GarageLogic</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -35,7 +35,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Vehicles\ElectricCar.cs" />
+    <Compile Include="ElectricEngine.cs" />
+    <Compile Include="Vehicles\ElectricMoto.cs" />
+    <Compile Include="Vehicles\FuelCar.cs" />
     <Compile Include="FuelEngine.cs" />
+    <Compile Include="Vehicles\FuelMoto.cs" />
+    <Compile Include="Vehicles\Track.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>

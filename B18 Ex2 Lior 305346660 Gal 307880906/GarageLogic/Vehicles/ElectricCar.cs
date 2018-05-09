@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public class FuelEngine
+    public class ElectricCar : Vehicle
     {
     }
 }
