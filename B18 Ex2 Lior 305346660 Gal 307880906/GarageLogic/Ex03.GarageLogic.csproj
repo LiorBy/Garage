@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="Vehicles\ElectricCar.cs" />
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="Vehicles\ElectricMotorcycle.cs" />

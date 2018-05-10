@@ -22,6 +22,11 @@ namespace Ex03.GarageLogic
         //// BATTERY HOURS
         public const float MotorcycleBatteryMaxHours = 1.8F;
         public const float CarBatteryMaxHours = 3.2F;
+        //////////////////////////////////////
+        //// ENGINE TYPE
+        public const int Fuel_Engine = 1;
+        public const int Electric_Engine = 2;
+
 
     }
 }
