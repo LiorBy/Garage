@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public enum EngineType
+    public enum eEngineType
     {
         // first option
         ////fuelEngine = Constants.Fuel_Engine,
@@ -21,17 +21,17 @@ namespace Ex03.GarageLogic
     {
         //// ////////////////
         ////   //////////////////////////////// UPDATE THE FIRST LETTER OF THE PARAMETERS
-        private readonly EngineType r_EngineType;
+        private readonly eEngineType r_EngineType;
         private float r_CurrentEnergyStatus = 0;
         private readonly float r_MaxEnergyCapacity;
 
-        public Engine(EngineType i_EngineType, float i__MaxEnergyCapacity)
+        public Engine(eEngineType i_EngineType, float i__MaxEnergyCapacity)
         {
             r_EngineType = i_EngineType;
             r_MaxEnergyCapacity = i__MaxEnergyCapacity;
         }
 
-        public EngineType WhatIsTheEngineType
+        public eEngineType WhatIsTheEngineType
         {
              get { return r_EngineType; }
         }
