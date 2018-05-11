@@ -25,5 +25,7 @@ namespace Ex03.GarageLogic
             get { return r_FuelType; }
         }
 
+      
+
     }
 }

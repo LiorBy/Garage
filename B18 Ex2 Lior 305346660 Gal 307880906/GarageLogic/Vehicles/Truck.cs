@@ -9,8 +9,8 @@ namespace Ex03.GarageLogic
         private readonly bool r_CoolerTrunk;
         private readonly float r_TrunkCapacity = Constants.TruckFuelTankCapacity;
 
-        public Truck(string i_ModelName, string i_LicenseNumber,bool i_CoolerTruck) :
-            base(i_ModelName, i_LicenseNumber,Constants.TruckNumberOfWheels)
+        public Truck(string i_ModelName, string i_LicenseNumber,bool i_CoolerTruck, Engine i_TruckEngine) :
+            base(i_ModelName, i_LicenseNumber,Constants.TruckNumberOfWheels,i_TruckEngine, Constants.MaxTruckAirPressure)
         {
             i_CoolerTruck = r_CoolerTrunk;
         }

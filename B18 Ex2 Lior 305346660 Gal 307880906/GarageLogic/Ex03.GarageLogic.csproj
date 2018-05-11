@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicles\Car.cs" />
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="FuelEngine.cs" />

@@ -29,8 +29,13 @@ namespace Ex03.GarageLogic
             get { return r_MaxEnergyCapacity; }
         }
 
+        public Type EngineType
+        {
+            get { return GetType(); }
+        }
 
-
+       // public abstract void FillGas<T>(T i_detalis);
+ 
 
     }
 

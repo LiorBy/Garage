@@ -16,8 +16,8 @@ namespace Ex03.GarageLogic.Vehicles
         private readonly eColorOfCar r_ColorOfTheCar;
         private readonly int r_NumberOfDoors; //// Can be 2, 3, 4 or 5...
         
-        public Car(string i_ModelName, string i_LicenseNumber, int i_NumberOfDoors, eColorOfCar i_ColorOfTheCar) : 
-            base(i_ModelName, i_LicenseNumber, Constants.CarNumberOfWheels) 
+        public Car(string i_ModelName, string i_LicenseNumber, int i_NumberOfDoors, eColorOfCar i_ColorOfTheCar, Engine i_CarEngine) : 
+            base(i_ModelName, i_LicenseNumber, Constants.CarNumberOfWheels, i_CarEngine, Constants.MaxCarAirPressure) 
         {
             r_NumberOfDoors = i_NumberOfDoors;
             i_ColorOfTheCar = r_ColorOfTheCar;
