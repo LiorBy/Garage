@@ -37,18 +37,19 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Vehicles\ElectricCar.cs" />
+    <Compile Include="Vehicles\Car.cs" />
     <Compile Include="ElectricEngine.cs" />
-    <Compile Include="Vehicles\ElectricMotorcycle.cs" />
-    <Compile Include="Vehicles\FuelCar.cs" />
     <Compile Include="FuelEngine.cs" />
-    <Compile Include="Vehicles\FuelMotorcycle.cs" />
+    <Compile Include="Vehicles\Motorcycle.cs" />
     <Compile Include="Vehicles\Truck.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WheelsModels.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

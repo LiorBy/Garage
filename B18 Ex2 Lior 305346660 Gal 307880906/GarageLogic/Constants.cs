@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
         //// FUEL TANK
         public const int MotorcycleFuelTackCapacity = 6;
         public const int CarFuelTackCapacity = 45;
-        public const int TruckFuelTackCapacity = 115;
+        public const int TruckFuelTankCapacity = 115;
         //// BATTERY HOURS
         public const float MotorcycleBatteryMaxHours = 1.8F;
         public const float CarBatteryMaxHours = 3.2F;
