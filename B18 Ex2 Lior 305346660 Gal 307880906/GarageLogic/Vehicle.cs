@@ -9,11 +9,12 @@ namespace Ex03.GarageLogic
     {
        
         private readonly string r_ModelName;
-        private readonly string r_LicenseNumber; //// max 20 digits
+        private readonly string r_LicenseNumber;                                   //// max 20 digits
         private float m_EnergyLevel;
         private List<Wheel> m_VehicleWheels = new List<Wheel>();
         private Engine m_EngineOfTheVehicle;
-        public Vehicle(string i_ModelName, string i_LicenseNumber, int i_NumberOfWheels,Engine  i_Engine,float i_MaxAirPressure)
+
+        public Vehicle(string i_ModelName, string i_LicenseNumber, int i_NumberOfWheels,Engine i_Engine,float i_MaxAirPressure)
         {
             r_ModelName = i_ModelName;
             r_LicenseNumber = i_LicenseNumber;
@@ -21,6 +22,7 @@ namespace Ex03.GarageLogic
             m_EngineOfTheVehicle = i_Engine;
             CreateWheels(i_NumberOfWheels, i_MaxAirPressure);
         }
+
         //// Create wheels with random models :-)
         private void CreateWheels(int i_NumberOfWheels, float i_MaxAirPressure)
         {
@@ -32,6 +34,7 @@ namespace Ex03.GarageLogic
                 m_VehicleWheels.Add(new Wheel(randomModelWheel, i_MaxAirPressure));
             }
         }
+
         public List<Wheel> VehicleWheelsList
         {
             get { return m_VehicleWheels; }
@@ -40,6 +43,7 @@ namespace Ex03.GarageLogic
                 m_VehicleWheels = value;
             }
         }
+
         public string ModelName
         {
             get { return r_ModelName; }

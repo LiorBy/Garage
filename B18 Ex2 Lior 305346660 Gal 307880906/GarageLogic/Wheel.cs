@@ -35,6 +35,7 @@ namespace Ex03.GarageLogic
         private readonly string r_ModelName;
         private float m_CurrentAirPressure = 0;
         private readonly float r_MaxAirPressure;
+        private float m_AvailableAirPressure = 0;
 
         public Wheel(string i_ModelName, float i_MaxAirPressure)
         {
@@ -53,6 +54,7 @@ namespace Ex03.GarageLogic
             set
             {
                 m_CurrentAirPressure = value;
+                m_AvailableAirPressure = r_MaxAirPressure - m_CurrentAirPressure;
             }
         }
 
@@ -61,19 +63,16 @@ namespace Ex03.GarageLogic
             get { return r_MaxAirPressure; }
         }
 
-        public bool InflateWheel(float i_AirToFill)
+        public void InflateWheel(float i_AirToFill)
         {
-            bool pressureIsOK = true;
-
-            if (r_MaxAirPressure - m_CurrentAirPressure < i_AirToFill)
+            if (m_AvailableAirPressure < i_AirToFill)
             {
-                pressureIsOK = false;
+                throw new ValueOutOfRangeException(i_AirToFill, m_AvailableAirPressure, Constants.k_ToMuchPsiMessege);
             }
             else
             {
                 m_CurrentAirPressure += i_AirToFill;
             }
-            return pressureIsOK;
         }
 
         public static List<string> WheelsModeList

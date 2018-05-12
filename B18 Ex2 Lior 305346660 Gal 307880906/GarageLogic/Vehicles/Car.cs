@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic.Vehicles
             White,
             Black
         }
+
         private readonly eColorOfCar r_ColorOfTheCar;
         private readonly int r_NumberOfDoors; //// Can be 2, 3, 4 or 5...
         

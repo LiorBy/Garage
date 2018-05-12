@@ -7,8 +7,9 @@ namespace Ex03.GarageLogic
     
     public abstract class Engine
     {
-        private float r_CurrentEnergyStatus ;
+        private float r_CurrentEnergyStatus;
         private readonly float r_MaxEnergyCapacity;
+        private float r_AvailableEnergyToFill;
 
         public Engine(float i_MaxEnergyCapacity)
         {
@@ -21,8 +22,20 @@ namespace Ex03.GarageLogic
             set
             {
                 r_CurrentEnergyStatus = value;
+                /////// this is the set for AvailableEnergyStatus
+                r_AvailableEnergyToFill = r_MaxEnergyCapacity - r_CurrentEnergyStatus;
             }
         }
+
+        public float AvailableEnergyStatus
+        {
+            get { return r_AvailableEnergyToFill; }
+            ////set
+            ////{
+            ////    r_AvailableEnergyToFill = r_MaxEnergyCapacity - r_CurrentEnergyStatus;
+            ////}
+        }
+
 
         public float MaxEnergyCapacity
         {
@@ -34,8 +47,9 @@ namespace Ex03.GarageLogic
             get { return GetType(); }
         }
 
-       // public abstract void FillGas<T>(T i_detalis);
- 
+        ////public abstract void FillEnergy<T>(T i_detalis);
+        public abstract void FillEnergy(float i_EnergyToFill);
+
 
     }
 

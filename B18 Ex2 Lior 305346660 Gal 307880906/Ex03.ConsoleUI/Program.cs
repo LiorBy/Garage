@@ -14,6 +14,7 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine(str);
             }
+
             Console.ReadKey();
         }
     }
