@@ -6,27 +6,26 @@ namespace Ex03.GarageLogic
 {
     public class ElectricEngine : Engine
     {
+        //// ctor
         public ElectricEngine(float i_MaxEnergyCapacity) : base(i_MaxEnergyCapacity) {}
 
-        public override void FillEnergy(float i_EnergyToFill)
-        {
+        //// methods
+        public override void FillEnergy(float i_EnergyToFill, eFuelType i_EnergyType = eFuelType.Electricity)
+        { //// i_EnergyToFill is receiving in minutes
             float EnergyToFillInHours = minutesConvertToHours(i_EnergyToFill);
-            if (base.AvailableEnergyStatus < i_EnergyToFill)
+            if (base.AvailableEnergyStatus < EnergyToFillInHours)
             {
-                throw new ValueOutOfRangeException(Constants.k_ChargingAction, i_EnergyToFill, base.AvailableEnergyStatus, Constants.k_ToMuchFuelMessege);
+                throw new ValueOutOfRangeException(Constants.k_ChargingAction, i_EnergyToFill, base.AvailableEnergyStatus, Constants.k_ToMuchFuelMessage);
             }
             else
-            {
+            { //// filling energy was a success!!
                 base.CurrentEnergyStatus += i_EnergyToFill;
             }
         }
 
-        //// this function convert minutes to hours in float values
         public float minutesConvertToHours (float i_Minutes)
-        {
+        { //// this function convert minutes to hours in float values
             return ((i_Minutes * Constants.k_PercentToMultiply) / Constants.k_MinutesPerHour);
         }
-
     }
-
 }

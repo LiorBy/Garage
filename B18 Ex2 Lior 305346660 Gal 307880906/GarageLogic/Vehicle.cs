@@ -7,19 +7,21 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-       
+        //// members
         private readonly string r_ModelName;
         private readonly string r_LicenseNumber;                                   //// max 20 digits
-        private float m_EnergyLevel;
+        private float m_EnergyPercent;
         private List<Wheel> m_VehicleWheels = new List<Wheel>();
         private Engine m_EngineOfTheVehicle;
 
-        public Vehicle(string i_ModelName, string i_LicenseNumber, int i_NumberOfWheels,Engine i_Engine,float i_MaxAirPressure)
+        //// methods
+        public Vehicle(string i_ModelName, string i_LicenseNumber, int i_NumberOfWheels, Engine i_Engine, float i_MaxAirPressure)
         {
             r_ModelName = i_ModelName;
             r_LicenseNumber = i_LicenseNumber;
             m_VehicleWheels.Capacity = i_NumberOfWheels;
             m_EngineOfTheVehicle = i_Engine;
+            EnergyLevel = i_Engine.CurrentEnergyStatus;
             CreateWheels(i_NumberOfWheels, i_MaxAirPressure);
         }
 
@@ -44,6 +46,15 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public void InflateAllWheels()
+        {
+            foreach (Wheel wheel in m_VehicleWheels)
+            {
+                float MissingPSIToInflate = wheel.AvailableAirPressure;
+                wheel.InflateWheel(MissingPSIToInflate);
+            }
+        }
+
         public string ModelName
         {
             get { return r_ModelName; }
@@ -54,13 +65,12 @@ namespace Ex03.GarageLogic
             get { return r_LicenseNumber; }
         }
 
-        public float EnergyLevel
+        private float EnergyLevel
         {
-            get { return m_EnergyLevel; }
-
+            get { return m_EnergyPercent; }
             set
             {
-                m_EnergyLevel = value;
+                m_EnergyPercent = (value * Constants.k_PercentToMultiply / m_EngineOfTheVehicle.MaxEnergyCapacity);
             }
         }
 
@@ -69,5 +79,9 @@ namespace Ex03.GarageLogic
             get { return m_EngineOfTheVehicle; }
         }
 
+        public void FillingEnergyAction (float i_AmountOfEnergyToFill, Engine.eFuelType i_FuelTypeToFill)
+        {
+            m_EngineOfTheVehicle.FillEnergy(i_AmountOfEnergyToFill, i_FuelTypeToFill);
+        }
     }
 }

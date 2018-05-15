@@ -15,13 +15,13 @@ namespace Ex03.GarageLogic.Vehicles
         }
 
         private readonly eLicenseType r_LicenseType;
-        private readonly int r_EngineCapacity;
+        private readonly int r_EngineCapacityInCC;
 
-        public Motorcycle(string i_ModelName, string i_LicenseNumber, eLicenseType i_LicenseType, int i_EngineCapacity, Engine i_MotorcycleEngine) :
-            base(i_ModelName, i_LicenseNumber, Constants.MotorcycleNumberOfWheels, i_MotorcycleEngine, Constants.MaxMotorcycleAirPressure)
+        public Motorcycle(string i_ModelName, string i_LicenseNumber, eLicenseType i_LicenseType, int i_EngineCapacityInCC, Engine i_MotorcycleEngine) :
+            base(i_ModelName, i_LicenseNumber, Constants.k_MotorcycleNumberOfWheels, i_MotorcycleEngine, Constants.k_MaxMotorcycleAirPressure)
         {
-            i_LicenseType = r_LicenseType;
-            i_EngineCapacity = r_EngineCapacity;
+            r_LicenseType = i_LicenseType;
+            r_EngineCapacityInCC = i_EngineCapacityInCC;
         }
 
         public eLicenseType LicenseType
@@ -29,15 +29,9 @@ namespace Ex03.GarageLogic.Vehicles
             get { return r_LicenseType; }
         }
 
-        public int EngineCapacity
+        public int EngineCapacityInCC
         {
-            get { return r_EngineCapacity; }
+            get { return r_EngineCapacityInCC; }
         }
-
-
-
-
-
-
     }
 }
