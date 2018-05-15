@@ -33,5 +33,12 @@ namespace Ex03.GarageLogic
         {
             get { return r_EngineCapacityInCC; }
         }
+
+        public override string UniqueVehicleInfo()
+        {
+            string lisenceTypeInfo = "Motorcycle License Type: " + r_LicenseType.ToString();
+            string engineCapacityInfo = "Motorcycle Engine Capacity: " +r_EngineCapacityInCC + " CC";
+            return string.Format("{0}\n{1}", lisenceTypeInfo, engineCapacityInfo);
+        }
     }
 }

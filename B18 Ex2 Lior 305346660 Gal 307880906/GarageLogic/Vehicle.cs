@@ -77,6 +77,28 @@ namespace Ex03.GarageLogic
             get { return m_EngineOfTheVehicle; }
         }
 
+        public string VehicleInfo()
+        {
+            string modelNameMessage = "Model Name: " + r_ModelName.ToString();
+            string licenseNumberMessage = "License Number: " + r_LicenseNumber.ToString();
+            string wheelsListSubjectMessage = "Wheels List: " + PrintAllWheelsInformationByVehicle();
+            string information = string.Format("{0}\n{1}\n{2}\n{3}\n", modelNameMessage, licenseNumberMessage,
+                m_EngineOfTheVehicle.EngineInformation(), wheelsListSubjectMessage, UniqueVehicleInfo());
+            return information;
+        }
+
+        public abstract string UniqueVehicleInfo();
+
+        private StringBuilder PrintAllWheelsInformationByVehicle()
+        {
+            StringBuilder wheelsList = new StringBuilder();
+            int counter = 1;
+            foreach (Wheel wheel in m_VehicleWheels)
+            {
+                wheelsList.AppendLine(counter + "." + "Wheel Model " + wheel.ModelName + ", Corrent PSI- " + wheel.CurrentAirPressure + ", Max PSI- " + wheel.MaxAirPressure);
+            }
+            return wheelsList;
+        }
         //public void FillingEnergyAction (float i_AmountOfEnergyToFill, Engine.eFuelType i_FuelTypeToFill)
         //{
         //    m_EngineOfTheVehicle.FillEnergy(i_AmountOfEnergyToFill, i_FuelTypeToFill);

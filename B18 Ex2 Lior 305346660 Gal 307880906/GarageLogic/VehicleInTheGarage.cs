@@ -53,6 +53,16 @@ namespace Ex03.GarageLogic
             set { m_VehicleStatusInTheGarage = value; }
         }
 
+        public string VehicleInTheGarageInfo()
+        {
+            string allInfo;
+            string ownerNameInfo = "Owner Name: " + r_OwnerName.ToString();
+            string ownerPhoneNumber = "Owner Phone Number:  " + r_OwnerPhoneNumber.ToString();
+            string garageStatusInfo = "Garage Status: " + m_VehicleStatusInTheGarage.ToString();
+            allInfo = string.Format("{0}\n{1}\n{2},{3}\n", ownerNameInfo, ownerPhoneNumber, garageStatusInfo, m_Vehicle.VehicleInfo());
+            return allInfo;
+
+        }
         ////public eVehicleStatus ConvertVehicleStatusFromChar(char i_VehicleNewStatusAsChar)
         ////{
         ////    if (i_VehicleNewStatusAsChar == Constants.k_InProgress)

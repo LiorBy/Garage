@@ -39,6 +39,17 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public override string EngineInformation()
+        {
+            string correntEnergyLevelMessage;
+            string maxEnergyLevelMessage;
+            string TypeEnergyMessage;
+            correntEnergyLevelMessage = "Corrent Energy Level " + CurrentEnergyStatus.ToString() + " Liters";
+            maxEnergyLevelMessage = "Max Energy Level " + MaxEnergyCapacity.ToString() + " Liters";
+            TypeEnergyMessage = "Fuel Type: " + r_FuelType.ToString();
+            string fuelEngineInformation = string.Format("{0}\n{1}\n{2}", correntEnergyLevelMessage, maxEnergyLevelMessage, TypeEnergyMessage);
+            return fuelEngineInformation;
+        }
         ////public override void FillEnergy(float i_EnergyToFill)
         ////{
         ////    if ((AvailableEnergyStatus < i_EnergyToFill) || (i_EnergyToFill < 0))

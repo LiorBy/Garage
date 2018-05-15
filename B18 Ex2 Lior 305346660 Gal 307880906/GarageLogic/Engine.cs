@@ -48,5 +48,6 @@ namespace Ex03.GarageLogic
 
         ////public abstract void FillEnergy<T>(T i_detalis);
         public abstract void FillEnergy(float i_EnergyAmountToFill);
+        public abstract string EngineInformation();
     }   
 }

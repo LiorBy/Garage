@@ -27,5 +27,19 @@ namespace Ex03.GarageLogic
         { //// this function convert minutes to hours in float values
             return ((i_Minutes * Constants.k_PercentToMultiply) / Constants.k_MinutesPerHour);
         }
+
+        public override string EngineInformation()
+        {
+            string correntEnergyLevelMessage;
+            string maxEnergyLevelMessage;
+            string TypeEnergyMessage;
+            correntEnergyLevelMessage = "Corrent Energy Level " + CurrentEnergyStatus.ToString() + " Hours";
+            maxEnergyLevelMessage = "Max Energy Level " + MaxEnergyCapacity.ToString() + " Hours";
+            TypeEnergyMessage = "Energy Engine ";
+            string fuelEngineInformation = string.Format("{0}\n{1}\n{2}", correntEnergyLevelMessage, maxEnergyLevelMessage, TypeEnergyMessage);
+            return fuelEngineInformation;
+         
+        }
     }
+
 }

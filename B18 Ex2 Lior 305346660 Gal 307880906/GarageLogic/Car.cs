@@ -33,5 +33,12 @@ namespace Ex03.GarageLogic
         {
             get { return r_ColorOfTheCar; }
         }
+
+        public override string UniqueVehicleInfo()
+        {
+            string carColorInfo = "Car Color: " + r_ColorOfTheCar.ToString();
+            string carNumberOfDoorsInfo = "Car Number Of Doors: " + r_NumberOfDoors.ToString();
+            return string.Format("{0}\n{1}", carColorInfo, carNumberOfDoorsInfo);
+        }
     }
 }

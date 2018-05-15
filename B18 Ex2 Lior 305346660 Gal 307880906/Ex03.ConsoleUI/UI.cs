@@ -162,79 +162,88 @@ namespace Ex03.ConsoleUI
             }
 
             IOpenedNewGarage.AllVehiclesInTheGarage.TryGetValue(licenseNumberToPrintData, out vehicleToPrint);
-            string modelNameMessage = "1.Model Name " + vehicleToPrint.Vehicle.ModelName;
-            string licenseNumberMessage = "2.License Number " + vehicleToPrint.Vehicle.LicenseNumber;
-            string wheelsListSubjectMessage = "6.Wheels List: ";
-            string correntEnergyLevelMessage;
-            string maxEnergyLevelMessage;
-            string TypeEnergyMessage;
-            if (vehicleToPrint.Vehicle.VehicleEngine is FuelEngine)
-            {
-                FuelEngine tempFuelEngine = (FuelEngine)vehicleToPrint.Vehicle.VehicleEngine;
-                correntEnergyLevelMessage = "3.Corrent Energy Level " + tempFuelEngine.CurrentEnergyStatus + " Liters";
-                maxEnergyLevelMessage = "4.Max Energy Level " + tempFuelEngine.MaxEnergyCapacity + " Liters";
-                TypeEnergyMessage = "5.Fuel Type: " + tempFuelEngine.FuelType;
-            }
-            else
-            {
+            vehicleToPrint.VehicleInTheGarageInfo();
 
-                correntEnergyLevelMessage = "3.Corrent Energy Level " + vehicleToPrint.Vehicle.VehicleEngine.CurrentEnergyStatus + " Hours";
-                maxEnergyLevelMessage = "4.Max Energy Level " + vehicleToPrint.Vehicle.VehicleEngine.MaxEnergyCapacity + " Hours";
-                TypeEnergyMessage = "5.Energy Engine ";
-            }
 
-            string OwnerNameMessage = "9.Owner Name: " + vehicleToPrint.OwnerName;
-            string StatusInTheGarage = "10.Garage Status: " + vehicleToPrint.StatusInTheGarage;
-            Console.WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n", modelNameMessage, licenseNumberMessage, correntEnergyLevelMessage,
-                maxEnergyLevelMessage, TypeEnergyMessage, wheelsListSubjectMessage, PrintAllWheelsInformationByVehicle(vehicleToPrint.Vehicle)));
-            if (vehicleToPrint.Vehicle is Car)
-            {
-                PrintCarInformation((Car)vehicleToPrint.Vehicle);
-            }
-            else if (vehicleToPrint.Vehicle is Motorcycle)
-            {
-                PrintMotorcycleInformation((Motorcycle)vehicleToPrint.Vehicle);
-            }
-            else
-            {
-                PrintTruckInformation((Truck)vehicleToPrint.Vehicle);
-            }
+
+
+
+
+
+
+            //string modelNameMessage = "1.Model Name " + vehicleToPrint.Vehicle.ModelName;
+            //string licenseNumberMessage = "2.License Number " + vehicleToPrint.Vehicle.LicenseNumber;
+            //string wheelsListSubjectMessage = "6.Wheels List: ";
+            //string correntEnergyLevelMessage;
+            //string maxEnergyLevelMessage;
+            //string TypeEnergyMessage;
+            //if (vehicleToPrint.Vehicle.VehicleEngine is FuelEngine)
+            //{
+            //    FuelEngine tempFuelEngine = (FuelEngine)vehicleToPrint.Vehicle.VehicleEngine;
+            //    correntEnergyLevelMessage = "3.Corrent Energy Level " + tempFuelEngine.CurrentEnergyStatus + " Liters";
+            //    maxEnergyLevelMessage = "4.Max Energy Level " + tempFuelEngine.MaxEnergyCapacity + " Liters";
+            //    TypeEnergyMessage = "5.Fuel Type: " + tempFuelEngine.FuelType;
+            //}
+            //else
+            //{
+
+            //    correntEnergyLevelMessage = "3.Corrent Energy Level " + vehicleToPrint.Vehicle.VehicleEngine.CurrentEnergyStatus + " Hours";
+            //    maxEnergyLevelMessage = "4.Max Energy Level " + vehicleToPrint.Vehicle.VehicleEngine.MaxEnergyCapacity + " Hours";
+            //    TypeEnergyMessage = "5.Energy Engine ";
+            //}
+
+            //string OwnerNameMessage = "9.Owner Name: " + vehicleToPrint.OwnerName;
+            //string StatusInTheGarage = "10.Garage Status: " + vehicleToPrint.StatusInTheGarage;
+            //Console.WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n", modelNameMessage, licenseNumberMessage, correntEnergyLevelMessage,
+            //    maxEnergyLevelMessage, TypeEnergyMessage, wheelsListSubjectMessage, PrintAllWheelsInformationByVehicle(vehicleToPrint.Vehicle)));
+            //if (vehicleToPrint.Vehicle is Car)
+            //{
+            //    PrintCarInformation((Car)vehicleToPrint.Vehicle);
+            //}
+            //else if (vehicleToPrint.Vehicle is Motorcycle)
+            //{
+            //    PrintMotorcycleInformation((Motorcycle)vehicleToPrint.Vehicle);
+            //}
+            //else
+            //{
+            //    PrintTruckInformation((Truck)vehicleToPrint.Vehicle);
+            //}
         }
 
-        private static StringBuilder PrintAllWheelsInformationByVehicle(Vehicle i_Vehicle)
-        {
-            StringBuilder wheelsList = new StringBuilder();
-            int counter = 1;
-            foreach (Wheel wheel in i_Vehicle.VehicleWheelsList)
-            {
-                wheelsList.AppendLine(counter + "." + "Wheel Model " + wheel.ModelName + ", Corrent PSI- " + wheel.CurrentAirPressure + ", Max PSI- " + wheel.MaxAirPressure);
-            }
-            return wheelsList;
-        }
-        private static void PrintCarInformation(Car i_car)
-        {
-            Console.WriteLine("7.Car Color: " + i_car.ColorOfTheCar);
-            Console.WriteLine("8.Number Of Doors:  " + i_car.NumberOfDoors);
-        }
-        private static void PrintMotorcycleInformation(Motorcycle i_Motorcycle)
-        {
-            Console.WriteLine("7.Motorcycle License Type: " + i_Motorcycle.LicenseType);
-            Console.WriteLine("8.Motorcycle Engine Capacity: " + i_Motorcycle.EngineCapacityInCC + " CC");
-        }
-        private static void PrintTruckInformation(Truck i_Truck)
-        {
-            Console.Write("7.Is The Trunk Is Cooler -->> ");
-            if (i_Truck.CoolerTrunk)
-            {
-                Console.WriteLine("YES ");
-            }
-            else
-            {
-                Console.WriteLine("NO ");
-            }
+        //private static StringBuilder PrintAllWheelsInformationByVehicle(Vehicle i_Vehicle)
+        //{
+        //    StringBuilder wheelsList = new StringBuilder();
+        //    int counter = 1;
+        //    foreach (Wheel wheel in i_Vehicle.VehicleWheelsList)
+        //    {
+        //        wheelsList.AppendLine(counter + "." + "Wheel Model " + wheel.ModelName + ", Corrent PSI- " + wheel.CurrentAirPressure + ", Max PSI- " + wheel.MaxAirPressure);
+        //    }
+        //    return wheelsList;
+        //}
+        //private static void PrintCarInformation(Car i_car)
+        //{
+        //    Console.WriteLine("7.Car Color: " + i_car.ColorOfTheCar);
+        //    Console.WriteLine("8.Number Of Doors:  " + i_car.NumberOfDoors);
+        //}
+        //private static void PrintMotorcycleInformation(Motorcycle i_Motorcycle)
+        //{
+        //    Console.WriteLine("7.Motorcycle License Type: " + i_Motorcycle.LicenseType);
+        //    Console.WriteLine("8.Motorcycle Engine Capacity: " + i_Motorcycle.EngineCapacityInCC + " CC");
+        //}
+        //private static void PrintTruckInformation(Truck i_Truck)
+        //{
+        //    Console.Write("7.Is The Trunk Is Cooler -->> ");
+        //    if (i_Truck.CoolerTrunk)
+        //    {
+        //        Console.WriteLine("YES ");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("NO ");
+        //    }
 
-            Console.WriteLine("8.Truck Trunk Capacity: " + i_Truck.TrunkCapacity);
-        }
+        //    Console.WriteLine("8.Truck Trunk Capacity: " + i_Truck.TrunkCapacity);
+        //}
 
 
 
