@@ -542,6 +542,27 @@ namespace Ex03.ConsoleUI
             Console.Write("----------------------------------------------------------");
             Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn + 4, Constants.k_StartPrintingMenuLine + 6);
         }
+
+        public static void WheelsModel()
+        {
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine);
+            Console.Write("----------------------------------------------------------");
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 1);
+            Console.Write("|               --- SYSTEM MESSAGE ---                   |");
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 2);
+            Console.Write("|                                                        |");
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 3);
+            Console.Write("|  WHEELS MODEL IS :                                     |");
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 4);
+            Console.Write("|                                                        |");
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 5);
+            Console.Write("|  CURRENT WHEELS PSI :                                  |");
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
+            Console.Write("|                                                        |");
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 7);
+            Console.Write("----------------------------------------------------------");
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn + 21, Constants.k_StartPrintingMenuLine + 3);
+        }
         ////public static void ElectricCarDisplayMenu()
         ////{
         ////    Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine);

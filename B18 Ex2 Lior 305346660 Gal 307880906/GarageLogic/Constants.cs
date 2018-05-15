@@ -47,5 +47,8 @@ namespace Ex03.GarageLogic
         public const char k_WaitingToGetPayment = '2';
         public const char k_PaidAndReadyToGo = '3';
 
+        //// ENGINE TYPES
+        public const char k_Fuel = '1';
+        public const char k_Electric = '2';
     }
 }

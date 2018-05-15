@@ -52,21 +52,5 @@ namespace Ex03.GarageLogic
             get { return m_VehicleStatusInTheGarage; }
             set { m_VehicleStatusInTheGarage = value; }
         }
-
-        ////public eVehicleStatus ConvertVehicleStatusFromChar(char i_VehicleNewStatusAsChar)
-        ////{
-        ////    if (i_VehicleNewStatusAsChar == Constants.k_InProgress)
-        ////    {
-                
-        ////    }
-        ////    else if (i_VehicleNewStatusAsChar == Constants.k_WaitingToGetPayment)
-        ////    {
-        ////    }
-        ////    else
-        ////    { //// (i_VehicleNewStatusAsChar == Constants.k_PaidAndReadyToGo)
-
-        ////    }
-        ////}
-
     }
 }

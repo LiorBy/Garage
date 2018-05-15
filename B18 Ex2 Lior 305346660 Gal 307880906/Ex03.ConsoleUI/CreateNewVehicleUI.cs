@@ -69,10 +69,11 @@ namespace Ex03.ConsoleUI
             string i_VehicleModel;
             float i_CurrentEnergyLevel;
             string i_CurrentEnergyLevelSTR;
-            float i_MaxEnergyLevel;
-            char i_FuelTypeSign;
-            Engine.eFuelType i_FuelType;
+            float i_CurrentWheelsPSI;
+            string i_CurrentWheelsPSISTR;
+            ////Engine.eFuelType i_FuelType;
             char i_ChoosenVehicleEngineType;
+            string wheelModel;
             
             //// car members
             char i_CarColorChar;
@@ -102,16 +103,16 @@ namespace Ex03.ConsoleUI
                 OutPutMessages.PrintWrongMessage();
                 i_ChoosenVehicleEngineType = Console.ReadKey().KeyChar;
             }
-            if (IsItAFuelEngine(i_ChoosenVehicleEngineType))
-            { //// case it is a fuel engine
-                OutPutMessages.ChooseFuelInVehicleTypeDisplayMenu();
-                i_FuelTypeSign = Console.ReadKey().KeyChar;
-                i_FuelType = UI.GetEngineTypeFromChar(i_FuelTypeSign);
-            }
-            else
-            { //// case it is an electric engine
-                i_FuelType = Engine.eFuelType.Electricity;
-            }
+            ////if (IsItAFuelEngine(i_ChoosenVehicleEngineType))
+            ////{ //// case it is a fuel engine
+            ////    OutPutMessages.ChooseFuelInVehicleTypeDisplayMenu();
+            ////    i_FuelTypeSign = Console.ReadKey().KeyChar;
+            ////    i_FuelType = UI.GetEngineTypeFromChar(i_FuelTypeSign);
+            ////}
+            ////else
+            ////{ //// case it is an electric engine
+            ////    i_FuelType = Engine.eFuelType.Electricity;
+            ////}
 
             OutPutMessages.VehicleEnergyLevelDisplayMenu();
             i_CurrentEnergyLevelSTR = Console.ReadLine();
@@ -121,6 +122,17 @@ namespace Ex03.ConsoleUI
                 i_CurrentEnergyLevelSTR = Console.ReadLine();
             }
 
+            OutPutMessages.WheelsModel();
+            wheelModel = Console.ReadLine();
+            Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn + 24, Constants.k_StartPrintingMenuLine + 5);
+            i_CurrentWheelsPSISTR = Console.ReadLine();
+            while (!(float.TryParse(i_CurrentWheelsPSISTR, out i_CurrentWheelsPSI)))
+            { //// case the string input could not convert to float
+                Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn + 24, Constants.k_StartPrintingMenuLine + 5);
+                i_CurrentWheelsPSISTR = Console.ReadLine();
+            }
+
+
             if (i_VehicleType == Constants.k_Car)
             {
                 OutPutMessages.CarColorsDisplayMenu();
@@ -129,16 +141,9 @@ namespace Ex03.ConsoleUI
                 OutPutMessages.NumberOfDoorsDisplayMenu();
                 i_NumberOfDoorsChar = Console.ReadKey().KeyChar;
                 i_NumberOfDoors = (i_NumberOfDoorsChar - Constants.k_ValueToDecreaseFromCharToGetInt);
-                if (IsItAFuelEngine(i_ChoosenVehicleEngineType))
-                { //// case it is a fuel engine
-                    i_MaxEnergyLevel = Constants.k_CarFuelTankCapacity;
-                }
-                else
-                { //// case it is an electric engine
-                    i_MaxEnergyLevel = Constants.k_CarBatteryMaxHours;
-                }
+                
 
-                CreateNewVehicle.AddNewCarCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_CarColor, i_NumberOfDoors, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
+                CreateNewVehicle.AddNewCarCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_CurrentEnergyLevel, i_CarColor, i_NumberOfDoors, i_ChoosenVehicleEngineType, i_OwnerName, i_OwnerPhoneNumber, wheelModel, i_CurrentWheelsPSI);
             }
             else if (i_VehicleType == Constants.k_Motorcycle)
             {
@@ -148,16 +153,8 @@ namespace Ex03.ConsoleUI
                 OutPutMessages.EngineCapacityCCDisplayMenu();
                 i_EngineCapacitiyCCSTR = Console.ReadLine();
                 i_EngineCapacitiyCC = int.Parse(i_EngineCapacitiyCCSTR);
-                if (IsItAFuelEngine(i_ChoosenVehicleEngineType))
-                { //// case it is a fuel engine
-                    i_MaxEnergyLevel = Constants.k_MotorcycleFuelTankCapacity;
-                }
-                else
-                { //// case it is an electric engine
-                    i_MaxEnergyLevel = Constants.k_MotorcycleBatteryMaxHours;
-                }
-
-                CreateNewVehicle.AddNewMotorcycleCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_MotorcycleLicenseType, i_EngineCapacitiyCC, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
+               
+                CreateNewVehicle.AddNewMotorcycleCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_CurrentEnergyLevel, i_MotorcycleLicenseType, i_EngineCapacitiyCC, i_ChoosenVehicleEngineType, i_OwnerName, i_OwnerPhoneNumber, wheelModel, i_CurrentWheelsPSI);
             }
             else
             { //// if (i_VehicleType == Constants.k_Truck)
@@ -171,29 +168,14 @@ namespace Ex03.ConsoleUI
 
                 i_TrunkIsCoolChar = Console.ReadKey().KeyChar;
                 i_TrunkIsCool = IsTheTrunkIsColler(i_TrunkIsCoolChar);
-                i_MaxEnergyLevel = Constants.k_TruckFuelTankCapacity;
-                CreateNewVehicle.AddNewTruckCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_TrunkIsCool, i_TrunkCapacityCC, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
+                CreateNewVehicle.AddNewTruckCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_CurrentEnergyLevel, i_TrunkIsCool, i_TrunkCapacityCC, i_OwnerName, i_OwnerPhoneNumber, wheelModel, i_CurrentWheelsPSI);
             }
 
             Console.Clear();
             OutPutMessages.SuccessMessageDisplayMenu();
             UI.WorkingInTheGarage();
-
         }
-
-        private static bool IsItAFuelEngine(char i_FuelOrElectric)
-        {
-            const bool v_ItsAFuelEngine = true;
-            if (i_FuelOrElectric == Constants.k_Fuel)
-            {
-                return (v_ItsAFuelEngine);
-            }
-            else
-            {
-                return (!v_ItsAFuelEngine);
-            }
-        }
-
+        
         private static bool IsTheTrunkIsColler(char i_TrunkIsCoolerOrNot)
         {
             const bool v_TheTrunkIsCooler = true;

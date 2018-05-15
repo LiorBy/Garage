@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
         private Engine m_EngineOfTheVehicle;
 
         //// methods
-        public Vehicle(string i_ModelName, string i_LicenseNumber, int i_NumberOfWheels, Engine i_Engine, float i_MaxAirPressure, string i_WheelModel)
+        public Vehicle(string i_ModelName, string i_LicenseNumber, int i_NumberOfWheels, Engine i_Engine, float i_MaxAirPressure, string i_WheelModel, float i_CurrentWheelsPSI)
         {
             r_ModelName = i_ModelName;
             r_LicenseNumber = i_LicenseNumber;
@@ -77,6 +77,18 @@ namespace Ex03.GarageLogic
             get { return m_EngineOfTheVehicle; }
         }
 
+        private static bool IsItAFuelEngine(char i_FuelOrElectric)
+        {
+            const bool v_ItsAFuelEngine = true;
+            if (i_FuelOrElectric == Constants.k_Fuel)
+            {
+                return (v_ItsAFuelEngine);
+            }
+            else
+            {
+                return (!v_ItsAFuelEngine);
+            }
+        }
         //public void FillingEnergyAction (float i_AmountOfEnergyToFill, Engine.eFuelType i_FuelTypeToFill)
         //{
         //    m_EngineOfTheVehicle.FillEnergy(i_AmountOfEnergyToFill, i_FuelTypeToFill);

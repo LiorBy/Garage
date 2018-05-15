@@ -14,10 +14,11 @@ namespace Ex03.GarageLogic
         private float m_AvailableAirPressure = 0;
 
         //// methods
-        public Wheel(string i_ModelName, float i_MaxAirPressure)
+        public Wheel(string i_ModelName, float i_MaxAirPressure, float i_CurrentAirPressure)
         {
             r_ModelName = i_ModelName;
             r_MaxAirPressure = i_MaxAirPressure;
+            CurrentAirPressure = i_CurrentAirPressure;
         }
 
         public string ModelName

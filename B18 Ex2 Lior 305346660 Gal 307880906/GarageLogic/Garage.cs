@@ -15,54 +15,6 @@ namespace Ex03.GarageLogic
             m_MyGarage.Add(i_LicenseNumberForNewVehicle, createdVehicle);
         }
 
-        ////public void AddNewCarCompleteInformation(string i_LicenseNumberForNewVehicle, string i_VehicleModel, float i_MaxEnergyLevel, float i_CurrentEnergyLevel, Vehicles.Car.eColorOfCar i_CarColor, int i_NumberOfDoors, Engine.eFuelType i_EnergyType)
-        ////{
-        ////    m_MyGarage.TryGetValue(i_LicenseNumberForNewVehicle, out createdVehicle);
-        ////    if (i_EnergyType == Engine.eFuelType.Electricity)
-        ////    {
-        ////        createdEngine = new ElectricEngine(i_MaxEnergyLevel);
-        ////    }
-        ////    else
-        ////    {
-        ////        createdEngine = new FuelEngine(i_MaxEnergyLevel, i_EnergyType);
-        ////    }
-
-        ////    createdEngine.CurrentEnergyStatus = i_CurrentEnergyLevel;
-        ////    createdVehicle.Vehicle = new Vehicles.Car(i_VehicleModel, i_LicenseNumberForNewVehicle, i_NumberOfDoors, i_CarColor, createdEngine);
-        ////}
-
-        
-        ////public void AddNewMotorcycleCompleteInformation(string i_LicenseNumberForNewVehicle, string i_VehicleModel, float i_MaxEnergyLevel, float i_CurrentEnergyLevel, Vehicles.Motorcycle.eLicenseType i_MotorcycleLicenseType, int i_EngineCapacitiyCC, Engine.eFuelType i_EnergyType)
-        ////{
-        ////    m_MyGarage.TryGetValue(i_LicenseNumberForNewVehicle, out createdVehicle);
-        ////    if (i_EnergyType == Engine.eFuelType.Electricity)
-        ////    {
-        ////        createdEngine = new ElectricEngine(i_MaxEnergyLevel);
-        ////    }
-        ////    else
-        ////    {
-        ////        createdEngine = new FuelEngine(i_MaxEnergyLevel, i_EnergyType);
-        ////    }
-
-        ////    createdEngine.CurrentEnergyStatus = i_CurrentEnergyLevel;
-        ////    createdVehicle.Vehicle = new Vehicles.Motorcycle(i_VehicleModel, i_LicenseNumberForNewVehicle, i_MotorcycleLicenseType, i_EngineCapacitiyCC, createdEngine);
-        ////}
-
-        ////public void AddNewTruckCompleteInformation(string i_LicenseNumberForNewVehicle, string i_VehicleModel, float i_MaxEnergyLevel, float i_CurrentEnergyLevel, bool i_CoolerTrunk, float i_TrunkCapacity, Engine.eFuelType i_EnergyType)
-        ////{
-        ////    m_MyGarage.TryGetValue(i_LicenseNumberForNewVehicle, out createdVehicle);
-        ////    if (i_EnergyType == Engine.eFuelType.Electricity)
-        ////    {
-        ////        createdEngine = new ElectricEngine(i_MaxEnergyLevel);
-        ////    }
-        ////    else
-        ////    {
-        ////        createdEngine = new FuelEngine(i_MaxEnergyLevel, i_EnergyType);
-        ////    }
-        ////    createdEngine.CurrentEnergyStatus = i_CurrentEnergyLevel;
-        ////    createdVehicle.Vehicle = new Vehicles.Truck(i_VehicleModel, i_LicenseNumberForNewVehicle, i_CoolerTrunk, i_TrunkCapacity, createdEngine);
-        ////}
-
         public Dictionary<string, VehicleInTheGarage> AllVehiclesInTheGarage
         {
             get { return m_MyGarage; }
@@ -97,7 +49,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void FillingEnergyInTheVehicle (float i_LittersToFill, Ex03.GarageLogic.Engine.eFuelType i_FuelTypeToFill, string i_LicenseNumberOfTheVehicle)
+        public void FillingEnergyInTheVehicle (float i_LittersToFill, FuelEngine.eFuelType i_FuelTypeToFill, string i_LicenseNumberOfTheVehicle)
         {
             VehicleInTheGarage vehicleToFill;
             m_MyGarage.TryGetValue(i_LicenseNumberOfTheVehicle, out vehicleToFill);
