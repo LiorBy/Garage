@@ -15,25 +15,23 @@ namespace Ex03.GarageLogic
         private Engine m_EngineOfTheVehicle;
 
         //// methods
-        public Vehicle(string i_ModelName, string i_LicenseNumber, int i_NumberOfWheels, Engine i_Engine, float i_MaxAirPressure)
+        public Vehicle(string i_ModelName, string i_LicenseNumber, int i_NumberOfWheels, Engine i_Engine, float i_MaxAirPressure, string i_WheelModel)
         {
             r_ModelName = i_ModelName;
             r_LicenseNumber = i_LicenseNumber;
             m_VehicleWheels.Capacity = i_NumberOfWheels;
             m_EngineOfTheVehicle = i_Engine;
             EnergyLevel = i_Engine.CurrentEnergyStatus;
-            CreateWheels(i_NumberOfWheels, i_MaxAirPressure);
+            CreateWheels(i_MaxAirPressure, i_WheelModel);
         }
 
         //// Create wheels with random models :-)
-        private void CreateWheels(int i_NumberOfWheels, float i_MaxAirPressure)
+        private void CreateWheels(float i_MaxAirPressure, string i_WheelModel)
         {
-            Random rand = new Random();
+           
             foreach (Wheel wheel in m_VehicleWheels)
             {
-                int randomNumber = rand.Next(Wheel.WheelsModeList.Count);
-                string randomModelWheel = Wheel.WheelsModeList[randomNumber];
-                m_VehicleWheels.Add(new Wheel(randomModelWheel, i_MaxAirPressure));
+                m_VehicleWheels.Add(new Wheel(i_WheelModel, i_MaxAirPressure));
             }
         }
 
@@ -79,9 +77,9 @@ namespace Ex03.GarageLogic
             get { return m_EngineOfTheVehicle; }
         }
 
-        public void FillingEnergyAction (float i_AmountOfEnergyToFill, Engine.eFuelType i_FuelTypeToFill)
-        {
-            m_EngineOfTheVehicle.FillEnergy(i_AmountOfEnergyToFill, i_FuelTypeToFill);
-        }
+        //public void FillingEnergyAction (float i_AmountOfEnergyToFill, Engine.eFuelType i_FuelTypeToFill)
+        //{
+        //    m_EngineOfTheVehicle.FillEnergy(i_AmountOfEnergyToFill, i_FuelTypeToFill);
+        //}
     }
 }

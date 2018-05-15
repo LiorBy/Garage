@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ex03.GarageLogic.Vehicles
+namespace Ex03.GarageLogic
 {
     public class Motorcycle : Vehicle
     {
@@ -17,8 +17,8 @@ namespace Ex03.GarageLogic.Vehicles
         private readonly eLicenseType r_LicenseType;
         private readonly int r_EngineCapacityInCC;
 
-        public Motorcycle(string i_ModelName, string i_LicenseNumber, eLicenseType i_LicenseType, int i_EngineCapacityInCC, Engine i_MotorcycleEngine) :
-            base(i_ModelName, i_LicenseNumber, Constants.k_MotorcycleNumberOfWheels, i_MotorcycleEngine, Constants.k_MaxMotorcycleAirPressure)
+        public Motorcycle(string i_ModelName, string i_LicenseNumber, eLicenseType i_LicenseType, int i_EngineCapacityInCC, Engine i_MotorcycleEngine, string i_WheelModel) :
+            base(i_ModelName, i_LicenseNumber, Constants.k_MotorcycleNumberOfWheels, i_MotorcycleEngine, Constants.k_MaxMotorcycleAirPressure,i_WheelModel)
         {
             r_LicenseType = i_LicenseType;
             r_EngineCapacityInCC = i_EngineCapacityInCC;

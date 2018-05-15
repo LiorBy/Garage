@@ -6,13 +6,13 @@ namespace Ex03.GarageLogic
 {
     public class FuelEngine: Engine
     {
-        ////public enum eFuelType
-        ////{
-        ////    Octan95,
-        ////    Octan96,
-        ////    Octan98,
-        ////    Soler
-        ////}
+        public enum eFuelType
+        {
+            Octan95,
+            Octan96,
+            Octan98,
+            Soler
+        }
         //// members
         private readonly eFuelType r_FuelType;
 
@@ -27,32 +27,39 @@ namespace Ex03.GarageLogic
             get { return r_FuelType; }
         }
 
-        ////public void VerifyFuelType(float i_EnergyToFill, eFuelType i_FuelType)
-        ////{
-        ////    if (i_FuelType != r_FuelType)
-        ////    {
-        ////        throw new ArgumentException(Constants.k_WrongFuelMessage + i_FuelType);
-        ////    }
-        ////    else
-        ////    {
-        ////        FillEnergy(i_EnergyToFill);
-        ////    }
-        ////}
-
-        public override void FillEnergy(float i_EnergyToFill, eFuelType i_FuelType)
+        public void VerifyFuelType(float i_EnergyToFill, eFuelType i_FuelType)
         {
             if (i_FuelType != r_FuelType)
             {
                 throw new ArgumentException(Constants.k_WrongFuelMessage + i_FuelType);
             }
-
-            if ((base.AvailableEnergyStatus < i_EnergyToFill) || (i_EnergyToFill < 0))
+            else
             {
-                throw new ValueOutOfRangeException(Constants.k_FillingFuelAction, i_EnergyToFill, base.AvailableEnergyStatus, Constants.k_ToMuchFuelMessage);
+                FillEnergy(i_EnergyToFill);
+            }
+        }
+
+        ////public override void FillEnergy(float i_EnergyToFill)
+        ////{
+        ////    if ((AvailableEnergyStatus < i_EnergyToFill) || (i_EnergyToFill < 0))
+        ////    {
+        ////        throw new ValueOutOfRangeException(Constants.k_FillingFuelAction, i_EnergyToFill, AvailableEnergyStatus, Constants.k_ToMuchFuelMessage);
+        ////    }
+        ////    else
+        ////    { //// filling energy was a success!!
+        ////        base.CurrentEnergyStatus += i_EnergyToFill;
+        ////    }
+        ////}
+
+        public override void FillEnergy(float i_EnergyAmountToFill)
+        {           
+            if ((base.AvailableEnergyStatus < i_EnergyAmountToFill) || (i_EnergyAmountToFill < 0))
+            {
+                throw new ValueOutOfRangeException(Constants.k_FillingFuelAction, i_EnergyAmountToFill, base.AvailableEnergyStatus, Constants.k_ToMuchFuelMessage);
             }
             else
             { //// filling energy was a success!!
-                base.CurrentEnergyStatus += i_EnergyToFill;
+                base.CurrentEnergyStatus += i_EnergyAmountToFill;
             }
         }
     }

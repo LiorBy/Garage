@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
@@ -70,18 +71,18 @@ namespace Ex03.ConsoleUI
             string i_CurrentEnergyLevelSTR;
             float i_MaxEnergyLevel;
             char i_FuelTypeSign;
-            Ex03.GarageLogic.Engine.eFuelType i_FuelType;
+            Engine.eFuelType i_FuelType;
             char i_ChoosenVehicleEngineType;
             
             //// car members
             char i_CarColorChar;
-            Ex03.GarageLogic.Vehicles.Car.eColorOfCar i_CarColor;
+            Car.eColorOfCar i_CarColor;
             int i_NumberOfDoors;
             char i_NumberOfDoorsChar;
 
             //// motorcycle members
             char i_MotorcycleLicenseTypeChar;
-            Ex03.GarageLogic.Vehicles.Motorcycle.eLicenseType i_MotorcycleLicenseType;
+            Motorcycle.eLicenseType i_MotorcycleLicenseType;
             int i_EngineCapacitiyCC;
             string i_EngineCapacitiyCCSTR;
 
@@ -109,7 +110,7 @@ namespace Ex03.ConsoleUI
             }
             else
             { //// case it is an electric engine
-                i_FuelType = Ex03.GarageLogic.Engine.eFuelType.Electricity;
+                i_FuelType = Engine.eFuelType.Electricity;
             }
 
             OutPutMessages.VehicleEnergyLevelDisplayMenu();
@@ -137,7 +138,7 @@ namespace Ex03.ConsoleUI
                     i_MaxEnergyLevel = Constants.k_CarBatteryMaxHours;
                 }
 
-                Ex03.GarageLogic.CreateNewVehicle.AddNewCarCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_CarColor, i_NumberOfDoors, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
+                CreateNewVehicle.AddNewCarCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_CarColor, i_NumberOfDoors, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
             }
             else if (i_VehicleType == Constants.k_Motorcycle)
             {
@@ -156,7 +157,7 @@ namespace Ex03.ConsoleUI
                     i_MaxEnergyLevel = Constants.k_MotorcycleBatteryMaxHours;
                 }
 
-                Ex03.GarageLogic.CreateNewVehicle.AddNewMotorcycleCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_MotorcycleLicenseType, i_EngineCapacitiyCC, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
+                CreateNewVehicle.AddNewMotorcycleCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_MotorcycleLicenseType, i_EngineCapacitiyCC, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
             }
             else
             { //// if (i_VehicleType == Constants.k_Truck)
@@ -171,7 +172,7 @@ namespace Ex03.ConsoleUI
                 i_TrunkIsCoolChar = Console.ReadKey().KeyChar;
                 i_TrunkIsCool = IsTheTrunkIsColler(i_TrunkIsCoolChar);
                 i_MaxEnergyLevel = Constants.k_TruckFuelTankCapacity;
-                Ex03.GarageLogic.CreateNewVehicle.AddNewTruckCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_TrunkIsCool, i_TrunkCapacityCC, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
+                CreateNewVehicle.AddNewTruckCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_TrunkIsCool, i_TrunkCapacityCC, i_FuelType, i_OwnerName, i_OwnerPhoneNumber);
             }
 
             Console.Clear();
@@ -206,43 +207,43 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private static Ex03.GarageLogic.Vehicles.Car.eColorOfCar GetCarColorFromChar(char i_CharInputForColor)
+        private static Car.eColorOfCar GetCarColorFromChar(char i_CharInputForColor)
         {
             if (i_CharInputForColor == Constants.k_ColorGrey)
             {
-                return (Ex03.GarageLogic.Vehicles.Car.eColorOfCar.Grey);
+                return (Car.eColorOfCar.Grey);
             }
             else if (i_CharInputForColor == Constants.k_ColorBlue)
             {
-                return (Ex03.GarageLogic.Vehicles.Car.eColorOfCar.Blue);
+                return (Car.eColorOfCar.Blue);
             }
             else if (i_CharInputForColor == Constants.k_ColorWhite)
             {
-                return (Ex03.GarageLogic.Vehicles.Car.eColorOfCar.White);
+                return (Car.eColorOfCar.White);
             }
             else
             { //// if (i_CharInputForColor == Constants.k_ColorBlack)
-                return (Ex03.GarageLogic.Vehicles.Car.eColorOfCar.Black);
+                return (Car.eColorOfCar.Black);
             }
         }
 
-        private static Ex03.GarageLogic.Vehicles.Motorcycle.eLicenseType GetLicenseTypeFromChar(char i_CharInputForLicenseType)
+        private static Motorcycle.eLicenseType GetLicenseTypeFromChar(char i_CharInputForLicenseType)
         {
             if (i_CharInputForLicenseType == Constants.k_LicenseTypeA)
             {
-                return (Ex03.GarageLogic.Vehicles.Motorcycle.eLicenseType.A);
+                return (Motorcycle.eLicenseType.A);
             }
             else if (i_CharInputForLicenseType == Constants.k_LicenseTypeA1)
             {
-                return (Ex03.GarageLogic.Vehicles.Motorcycle.eLicenseType.A1);
+                return (Motorcycle.eLicenseType.A1);
             }
             else if (i_CharInputForLicenseType == Constants.k_LicenseTypeB1)
             {
-                return (Ex03.GarageLogic.Vehicles.Motorcycle.eLicenseType.B1);
+                return (Motorcycle.eLicenseType.B1);
             }
             else
             { //// if (i_CharInputForColor == Constants.k_LicenseTypeB2)
-                return (Ex03.GarageLogic.Vehicles.Motorcycle.eLicenseType.B2);
+                return (Motorcycle.eLicenseType.B2);
             }
         }
     }

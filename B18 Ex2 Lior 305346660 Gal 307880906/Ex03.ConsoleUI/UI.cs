@@ -63,24 +63,31 @@ namespace Ex03.ConsoleUI
             }
 
             Console.Clear();
-            if (BackToPreviewScreen(decision))
+            try
+            {
+                if (!BackToPreviewScreen(decision))
+                {
+                    if (decision == Constants.k_AllVehiclesLicenseNumbers)
+                    {
+                        PrintAllVehiclesLicenseNumber();
+                    }
+                    else
+                    { //// decision == Constants.k_SpecificVehicleFullData
+                        PrintAllDataForSpecificVehicle();
+                    }
+                }             
+            }
+            finally
             {
                 WorkingInTheGarage();
             }
-            else if (decision == Constants.k_AllVehiclesLicenseNumbers)
-            {
-                PrintAllVehiclesLicenseNumber();
-            }
-            else
-            { //// decision == Constants.k_SpecificVehicleFullData
-                PrintAllDataForSpecificVehicle();
-            }
+            
         }
         
         private static void PrintAllVehiclesLicenseNumber()
         {
             OutPutMessages.PrintAllVehiclesLicenseNumberDisplayMenu();
-            Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus VehicleStatusToPrint;
+            VehicleInTheGarage.eVehicleStatus VehicleStatusToPrint;
             char decision = Console.ReadKey().KeyChar;
             while (decision != Constants.k_InProgress && decision != Constants.k_WaitingToGetPayment && decision != Constants.k_PaidAndReadyToGo && decision != Constants.k_AllTheVehicles && decision != Constants.k_PreviewMenu)
             {
@@ -89,32 +96,36 @@ namespace Ex03.ConsoleUI
             }
 
             Console.Clear();
-            if (BackToPreviewScreen(decision))
+            try 
+            {
+                if (!BackToPreviewScreen(decision))
+                {
+                    VehicleStatusToPrint = GetVehicleStatusFromChar(decision);
+                    if (VehicleStatusToPrint == VehicleInTheGarage.eVehicleStatus.AllStatus)
+                    {
+                        Console.WriteLine("ALL VEHICLES LICENSE NUMBER : \n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("ALL VEHICLES LICENSE NUMBERS IN STATUS {0} : \n", VehicleStatusToPrint);
+                    }
+
+                    foreach (KeyValuePair<string, VehicleInTheGarage> i_PrintLicenseNumbers in IOpenedNewGarage.AllVehiclesInTheGarage)
+                    {
+                        if (VehicleStatusToPrint == VehicleInTheGarage.eVehicleStatus.AllStatus)
+                        {
+                            Console.WriteLine(i_PrintLicenseNumbers.Key + "\n");
+                        }
+                        else if (i_PrintLicenseNumbers.Value.StatusInTheGarage == VehicleStatusToPrint)
+                        {
+                            Console.WriteLine(i_PrintLicenseNumbers.Key + "\n");
+                        }
+                    }
+                }
+            }
+            finally
             {
                 ReceiveInformation();
-            }
-
-            VehicleStatusToPrint = GetVehicleStatusFromChar(decision);
-            Console.Clear();
-            if (VehicleStatusToPrint == Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.AllStatus)
-            {
-                Console.WriteLine("ALL VEHICLES LICENSE NUMBER : \n");
-            }
-            else
-            {
-                Console.WriteLine("ALL VEHICLES LICENSE NUMBERS IN STATUS {0} : \n", VehicleStatusToPrint);
-            }
-
-            foreach (KeyValuePair<string, VehicleInTheGarage> i_PrintLicenseNumbers in IOpenedNewGarage.AllVehiclesInTheGarage)
-            {
-                if (VehicleStatusToPrint == Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.AllStatus)
-                {
-                    Console.WriteLine(i_PrintLicenseNumbers.Key + "\n");
-                }
-                else if(i_PrintLicenseNumbers.Value.StatusInTheGarage == VehicleStatusToPrint)
-                {
-                    Console.WriteLine(i_PrintLicenseNumbers.Key + "\n");
-                }
             }
 
             Thread.Sleep(5000);
@@ -122,36 +133,148 @@ namespace Ex03.ConsoleUI
             Console.Clear();
         }
 
+
         private static void PrintAllDataForSpecificVehicle()
         {
+            VehicleInTheGarage vehicleToPrint = null;
             string licenseNumberToPrintData;
             OutPutMessages.AskingForVehicleLicenseNumberDisplayMenu();
             licenseNumberToPrintData = Console.ReadLine();
-            while (IsTheInputCorrect(licenseNumberToPrintData, eInputsToCheck.LicenseNumber) == Constants.k_WrongInput)
-            { //// wrong license number input
-                OutPutMessages.AskingForVehicleLicenseNumberDisplayMenu();
-                licenseNumberToPrintData = Console.ReadLine();
-            }
-
             if (BackToPreviewScreen(licenseNumberToPrintData))
             { //// return to preview menu
                 ReceiveInformation();
-            }       
+            }
+            else if (IsTheInputCorrect(licenseNumberToPrintData, eInputsToCheck.LicenseNumber) == Constants.k_WrongInput)
+            { //// wrong license number input
+                PrintAllDataForSpecificVehicle();
+            }
             else
-            {
-                //// license number not exist
+            { //// license number not exist
                 while (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToPrintData))
-                { //// OutPutMessages.LicenseNumberNotExistMessage();
+                {
+                    //// OutPutMessages.LicenseNumberNotExistMessage();
                     Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
                     Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
                     Thread.Sleep(1500);
                     licenseNumberToPrintData = Console.ReadLine();
                 }
                 //// license number exist- lets print its information
+            }
 
+            IOpenedNewGarage.AllVehiclesInTheGarage.TryGetValue(licenseNumberToPrintData, out vehicleToPrint);
+            string modelNameMessage = "1.Model Name " + vehicleToPrint.Vehicle.ModelName;
+            string licenseNumberMessage = "2.License Number " + vehicleToPrint.Vehicle.LicenseNumber;
+            string wheelsListSubjectMessage = "6.Wheels List: ";
+            string correntEnergyLevelMessage;
+            string maxEnergyLevelMessage;
+            string TypeEnergyMessage;
+            if (vehicleToPrint.Vehicle.VehicleEngine is FuelEngine)
+            {
+                FuelEngine tempFuelEngine = (FuelEngine)vehicleToPrint.Vehicle.VehicleEngine;
+                correntEnergyLevelMessage = "3.Corrent Energy Level " + tempFuelEngine.CurrentEnergyStatus + " Liters";
+                maxEnergyLevelMessage = "4.Max Energy Level " + tempFuelEngine.MaxEnergyCapacity + " Liters";
+                TypeEnergyMessage = "5.Fuel Type: " + tempFuelEngine.FuelType;
+            }
+            else
+            {
 
+                correntEnergyLevelMessage = "3.Corrent Energy Level " + vehicleToPrint.Vehicle.VehicleEngine.CurrentEnergyStatus + " Hours";
+                maxEnergyLevelMessage = "4.Max Energy Level " + vehicleToPrint.Vehicle.VehicleEngine.MaxEnergyCapacity + " Hours";
+                TypeEnergyMessage = "5.Energy Engine ";
+            }
+
+            string OwnerNameMessage = "9.Owner Name: " + vehicleToPrint.OwnerName;
+            string StatusInTheGarage = "10.Garage Status: " + vehicleToPrint.StatusInTheGarage;
+            Console.WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n", modelNameMessage, licenseNumberMessage, correntEnergyLevelMessage,
+                maxEnergyLevelMessage, TypeEnergyMessage, wheelsListSubjectMessage, PrintAllWheelsInformationByVehicle(vehicleToPrint.Vehicle)));
+            if (vehicleToPrint.Vehicle is Car)
+            {
+                PrintCarInformation((Car)vehicleToPrint.Vehicle);
+            }
+            else if (vehicleToPrint.Vehicle is Motorcycle)
+            {
+                PrintMotorcycleInformation((Motorcycle)vehicleToPrint.Vehicle);
+            }
+            else
+            {
+                PrintTruckInformation((Truck)vehicleToPrint.Vehicle);
             }
         }
+
+        private static StringBuilder PrintAllWheelsInformationByVehicle(Vehicle i_Vehicle)
+        {
+            StringBuilder wheelsList = new StringBuilder();
+            int counter = 1;
+            foreach (Wheel wheel in i_Vehicle.VehicleWheelsList)
+            {
+                wheelsList.AppendLine(counter + "." + "Wheel Model " + wheel.ModelName + ", Corrent PSI- " + wheel.CurrentAirPressure + ", Max PSI- " + wheel.MaxAirPressure);
+            }
+            return wheelsList;
+        }
+        private static void PrintCarInformation(Car i_car)
+        {
+            Console.WriteLine("7.Car Color: " + i_car.ColorOfTheCar);
+            Console.WriteLine("8.Number Of Doors:  " + i_car.NumberOfDoors);
+        }
+        private static void PrintMotorcycleInformation(Motorcycle i_Motorcycle)
+        {
+            Console.WriteLine("7.Motorcycle License Type: " + i_Motorcycle.LicenseType);
+            Console.WriteLine("8.Motorcycle Engine Capacity: " + i_Motorcycle.EngineCapacityInCC + " CC");
+        }
+        private static void PrintTruckInformation(Truck i_Truck)
+        {
+            Console.Write("7.Is The Trunk Is Cooler -->> ");
+            if (i_Truck.CoolerTrunk)
+            {
+                Console.WriteLine("YES ");
+            }
+            else
+            {
+                Console.WriteLine("NO ");
+            }
+
+            Console.WriteLine("8.Truck Trunk Capacity: " + i_Truck.TrunkCapacity);
+        }
+
+
+
+
+
+        ////private static void PrintAllDataForSpecificVehicle()
+        ////{
+        ////    string licenseNumberToPrintData;
+        ////    OutPutMessages.AskingForVehicleLicenseNumberDisplayMenu();
+        ////    licenseNumberToPrintData = Console.ReadLine();
+        ////    while (IsTheInputCorrect(licenseNumberToPrintData, eInputsToCheck.LicenseNumber) == Constants.k_WrongInput)
+        ////    { //// wrong license number input
+        ////        OutPutMessages.AskingForVehicleLicenseNumberDisplayMenu();
+        ////        licenseNumberToPrintData = Console.ReadLine();
+        ////    }
+
+        ////    try
+        ////    {
+        ////        if (!BackToPreviewScreen(licenseNumberToPrintData))
+        ////        {
+        ////            //// license number not exist
+        ////            while (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToPrintData))
+        ////            { //// OutPutMessages.LicenseNumberNotExistMessage();
+        ////                Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
+        ////                Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
+        ////                Thread.Sleep(1500);
+        ////                licenseNumberToPrintData = Console.ReadLine();
+        ////            }
+        ////            //// license number exist- lets print its information
+        ////            /////
+        ////            //////
+
+        ////        }
+        ////    }
+        ////    finally
+        ////    {
+        ////        ReceiveInformation();
+        ////    }
+            
+        ////}
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         private static void UpdateVehicleData()
@@ -275,7 +398,7 @@ namespace Ex03.ConsoleUI
                         
                     ////}
                 }
-                catch (Ex03.GarageLogic.ValueOutOfRangeException InflateFailed)
+                catch (ValueOutOfRangeException InflateFailed)
                 {
                     Console.Clear();
                     Console.WriteLine("Catching ValueOutOfRangeException: ");
@@ -332,20 +455,20 @@ namespace Ex03.ConsoleUI
         {
             char FuelTypeSign;
 
-            Ex03.GarageLogic.Engine.eFuelType FuelTypeToFill;
+            FuelEngine.eFuelType FuelTypeToFill;
             string EnergyAmountToAddSTR;
             float EnergyAmountToAdd;
             if (IOpenedNewGarage.IsItAFuelEngine(i_LicenseNumberOfVehicleToFill))
             { //// this is a fuel engine
                 OutPutMessages.ChooseFuelInVehicleTypeDisplayMenu();
                 FuelTypeSign = Console.ReadKey().KeyChar;
-                FuelTypeToFill = GetEngineTypeFromChar(FuelTypeSign);
+                FuelTypeToFill = GetFuelTypeFromChar(FuelTypeSign);
                 OutPutMessages.FillingFuelInVehicleChooseAmountDisplayMenu();
             }
             else
             { //// this is an electric engine
                 OutPutMessages.ChargingElectricInVehicleDisplayMenu();
-                FuelTypeToFill = Ex03.GarageLogic.Engine.eFuelType.Electricity;
+                FuelTypeToFill = Engine.eFuelType.Electricity;
             }
 
             EnergyAmountToAddSTR = Console.ReadLine();
@@ -366,43 +489,43 @@ namespace Ex03.ConsoleUI
             }
         }     
 
-        public static Ex03.GarageLogic.Engine.eFuelType GetEngineTypeFromChar(char i_CharInputForEnergyType)
+        public static FuelEngine.eFuelType GetFuelTypeFromChar(char i_CharInputForEnergyType)
         {
             if (i_CharInputForEnergyType == Constants.k_Octan95)
             {
-                return (Ex03.GarageLogic.Engine.eFuelType.Octan95);
+                return (FuelEngine.eFuelType.Octan95);
             }
             else if (i_CharInputForEnergyType == Constants.k_Octan96)
             {
-                return (Ex03.GarageLogic.Engine.eFuelType.Octan96);
+                return (FuelEngine.eFuelType.Octan96);
             }
             else if (i_CharInputForEnergyType == Constants.k_Octan98)
             {
-                return (Ex03.GarageLogic.Engine.eFuelType.Octan98);
+                return (FuelEngine.eFuelType.Octan98);
             }
             else
             { //// if (i_CharInputForColor == Constants.k_Soler)
-                return (Ex03.GarageLogic.Engine.eFuelType.Soler);
+                return (FuelEngine.eFuelType.Soler);
             }
         }
 
-        public static Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus GetVehicleStatusFromChar(char i_CharInputForVehicleStatus)
+        public static VehicleInTheGarage.eVehicleStatus GetVehicleStatusFromChar(char i_CharInputForVehicleStatus)
         {
             if (i_CharInputForVehicleStatus == Constants.k_InProgress)
             {
-                return (Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.InProgress);
+                return (VehicleInTheGarage.eVehicleStatus.InProgress);
             }
             else if (i_CharInputForVehicleStatus == Constants.k_WaitingToGetPayment)
             {
-                return (Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.WaitingToGetPayment);
+                return (VehicleInTheGarage.eVehicleStatus.WaitingToGetPayment);
             }
             else if (i_CharInputForVehicleStatus == Constants.k_PaidAndReadyToGo)
             {
-                return (Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.PaidAndReadyToGo);
+                return (VehicleInTheGarage.eVehicleStatus.PaidAndReadyToGo);
             }
             else
             { //// if (i_CharInputForColor == Constants.k_Soler)
-                return (Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.AllStatus);
+                return (VehicleInTheGarage.eVehicleStatus.AllStatus);
             }
         }
 
@@ -485,7 +608,10 @@ namespace Ex03.ConsoleUI
             {
                 return (!v_GoBack);
             }
-        }      
+        }
+
+
+        
     }
 }
 

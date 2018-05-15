@@ -7,14 +7,7 @@ namespace Ex03.GarageLogic
     
     public abstract class Engine
     {
-        public enum eFuelType
-        {
-            Octan95,
-            Octan96,
-            Octan98,
-            Soler,
-            Electricity
-        }
+        
         ////  members
         private float r_CurrentEnergyStatus = 0;
         private readonly float r_MaxEnergyCapacity = 0;
@@ -48,12 +41,12 @@ namespace Ex03.GarageLogic
             get { return r_MaxEnergyCapacity; }
         }
 
-        public Type EngineType
-        {
-            get { return GetType(); }
-        }
+        ////public Type EngineType
+        ////{
+        ////    get { return GetType(); }
+        ////}
 
         ////public abstract void FillEnergy<T>(T i_detalis);
-        public abstract void FillEnergy(float i_EnergyToFill, eFuelType i_EnergyType);
+        public abstract void FillEnergy(float i_EnergyAmountToFill);
     }   
 }
