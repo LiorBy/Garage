@@ -10,13 +10,8 @@ namespace Ex03.ConsoleUI
     {
         public static void Main()
         {
-            Console.CursorVisible = false; //// BECAUSE I CAN!!!
-            //////IEnumerable<string> lines = File.ReadAllLines("WheelsModels.txt");
-            //////foreach(string str in lines)
-            //////{
-            //////    Console.WriteLine(str);
-            //////}
-            //////Console.ReadKey();
+            Console.CursorVisible = false; 
+      
             UI.WorkingInTheGarage();
         }
     }

@@ -20,7 +20,7 @@ namespace Ex03.ConsoleUI
 
         public static void WorkingInTheGarage()
         {
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
             char theDecisionToDoIs = ChooseWhatToDo();
             if (theDecisionToDoIs == Constants.k_NewVehicle)
             {
@@ -47,7 +47,7 @@ namespace Ex03.ConsoleUI
                 decision = Console.ReadKey().KeyChar;
             }
 
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
             return decision;
         }
 
@@ -62,7 +62,7 @@ namespace Ex03.ConsoleUI
                 decision = Console.ReadKey().KeyChar;
             }
 
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
             if (BackToPreviewScreen(decision))
             {
                 WorkingInTheGarage();
@@ -88,14 +88,14 @@ namespace Ex03.ConsoleUI
                 decision = Console.ReadKey().KeyChar;
             }
 
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
             if (BackToPreviewScreen(decision))
             {
                 ReceiveInformation();
             }
 
             VehicleStatusToPrint = GetVehicleStatusFromChar(decision);
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
             if (VehicleStatusToPrint == Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.AllStatus)
             {
                 Console.WriteLine("ALL VEHICLES LICENSE NUMBERS : \n");
@@ -117,11 +117,11 @@ namespace Ex03.ConsoleUI
                 }
             }
 
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
             WorkingInTheGarage();
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
         }
-        
+
         private static void PrintAllDataForSpecificVehicle()
         {
             string licenseNumberToPrintData;
@@ -135,15 +135,19 @@ namespace Ex03.ConsoleUI
             { //// wrong license number input
                 PrintAllDataForSpecificVehicle();
             }
-            else if (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToPrintData))
-            { //// license number not exist
-                OutPutMessages.LicenseNumberNotExistMessage();
-                PrintAllDataForSpecificVehicle();
-            }
             else
-            { //// license number exist- lets print its information
-
+            { //// license number not exist
+                while (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToPrintData))
+                {
+                    //// OutPutMessages.LicenseNumberNotExistMessage();
+                    Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
+                    Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
+                    Thread.Sleep(1500);
+                    licenseNumberToPrintData = Console.ReadLine();
+                }
+                //// license number exist- lets print its information
             }
+            
 
 
 
@@ -160,7 +164,7 @@ namespace Ex03.ConsoleUI
                 decision = Console.ReadKey().KeyChar;
             }
 
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
             if (BackToPreviewScreen(decision))
             {
                 WorkingInTheGarage();
@@ -197,7 +201,7 @@ namespace Ex03.ConsoleUI
             {
                 Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
                 Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
-                Thread.Sleep(2500);
+                Thread.Sleep(1500);
                 ChangeVehicleStatus();
             }
             else
@@ -218,7 +222,7 @@ namespace Ex03.ConsoleUI
                 { //// (decision == Constants.k_PaidAndReadyToGo)
                     IOpenedNewGarage.UpdateVehicleStatus(licenseNumberToChangeStatus, decision);
                     OutPutMessages.GarageUpdateStatusForExistVehicle();
-                    Thread.Sleep(2500);
+                    Thread.Sleep(1500);
                     WorkingInTheGarage();
                 }
             }                                     
@@ -241,28 +245,37 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    if (IOpenedNewGarage.LicenseNumberExist(licenseNumberToChangeStatus))
-                    {
-                        IOpenedNewGarage.InflateAirInWheels(licenseNumberToChangeStatus);
-                        OutPutMessages.SuccessMessageForInflateAction();
-                        Thread.Sleep(2500);
-                        WorkingInTheGarage();
-                    }
-                    else
+                    while (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToChangeStatus))
                     {
                         Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
                         Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
-                        Thread.Sleep(2500);
-                        InflateVehicleWheels();
+                        Thread.Sleep(1500);
+                        licenseNumberToChangeStatus = Console.ReadLine();
                     }
+
+                    IOpenedNewGarage.InflateAirInWheels(licenseNumberToChangeStatus);
+                    OutPutMessages.SuccessMessageForInflateAction();
+                    Thread.Sleep(1500);
+                    WorkingInTheGarage();
+                    ////if (IOpenedNewGarage.LicenseNumberExist(licenseNumberToChangeStatus))
+                    ////{
+                    ////    IOpenedNewGarage.InflateAirInWheels(licenseNumberToChangeStatus);
+                    ////    OutPutMessages.SuccessMessageForInflateAction();
+                    ////    Thread.Sleep(2500);
+                    ////    WorkingInTheGarage();
+                    ////}
+                    ////else
+                    ////{
+                        
+                    ////}
                 }
                 catch (Ex03.GarageLogic.ValueOutOfRangeException InflateFailed)
                 {
-                    Ex02.ConsoleUtils.Screen.Clear();
+                    Console.Clear();
                     Console.WriteLine("Catching ValueOutOfRangeException: ");
                     Console.WriteLine(InflateFailed.Message);
-                    Thread.Sleep(5500);
-                    Ex02.ConsoleUtils.Screen.Clear();
+                    Thread.Sleep(4500);
+                    Console.Clear();
                     InflateVehicleWheels();
                 }
             }
@@ -286,25 +299,23 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    if (IOpenedNewGarage.LicenseNumberExist(licenseNumberToChangeStatus))
-                    { //// case the license number exist
-                        FillinFuelOrElectricInVehicle(licenseNumberToChangeStatus);
-                    }
-                    else
-                    {
+                    while (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToChangeStatus))
+                    { //// case the license number not exist
                         Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
                         Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
-                        Thread.Sleep(2500);
-                        FillingEnergyInVehicle();
+                        Thread.Sleep(1500);
+                        licenseNumberToChangeStatus = Console.ReadLine();
                     }
+
+                    FillinFuelOrElectricInVehicle(licenseNumberToChangeStatus);
                 }
                 catch (Exception FillingEnergyFailed)
                 {
-                    Ex02.ConsoleUtils.Screen.Clear();
+                    Console.Clear();
                     Console.WriteLine("Catching Exception : \n");
                     Console.WriteLine(FillingEnergyFailed.Message);
-                    Thread.Sleep(5500);
-                    Ex02.ConsoleUtils.Screen.Clear();
+                    Thread.Sleep(4500);
+                    Console.Clear();
                     FillingEnergyInVehicle();
                     ///////////////////////////////////////////////////////
                 }
@@ -344,7 +355,7 @@ namespace Ex03.ConsoleUI
             {
                 IOpenedNewGarage.FillingEnergyInTheVehicle(EnergyAmountToAdd, FuelTypeToFill, i_LicenseNumberOfVehicleToFill);
                 OutPutMessages.SuccessMessageForFillingEnergyAction();
-                Thread.Sleep(2500);
+                Thread.Sleep(1500);
                 WorkingInTheGarage();
             }
         }     
@@ -411,6 +422,7 @@ namespace Ex03.ConsoleUI
             else
             {
                 OutPutMessages.ChangeStatusForExistVehicle();
+                IOpenedNewGarage.UpdateVehicleStatus(licenseNumberToCreateVehicle, Constants.k_InProgress);
                 WorkingInTheGarage();
             }
         }
@@ -444,7 +456,7 @@ namespace Ex03.ConsoleUI
             const bool v_GoBack = true;
             if(i_CharToCheck == Constants.k_PreviewMenu)
              {
-                Ex02.ConsoleUtils.Screen.Clear();
+                Console.Clear();
                 return (v_GoBack);
             }
             else
@@ -458,7 +470,7 @@ namespace Ex03.ConsoleUI
             const bool v_GoBack = true;
             if (i_StringToCheck.CompareTo(Constants.k_PreviewMenuSTR) == 0)
             {
-                Ex02.ConsoleUtils.Screen.Clear();
+                Console.Clear();
                 return (v_GoBack);
             }
             else

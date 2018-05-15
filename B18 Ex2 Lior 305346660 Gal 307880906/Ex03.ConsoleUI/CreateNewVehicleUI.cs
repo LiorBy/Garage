@@ -48,7 +48,7 @@ namespace Ex03.ConsoleUI
                 i_ChoosenVehicleType = Console.ReadKey().KeyChar;
             }
 
-            Ex02.ConsoleUtils.Screen.Clear();          
+            Console.Clear();
             if (i_ChoosenVehicleType == Constants.k_Car)
             {
                 ChooseEngineType(i_VehicleLicenseNumber, Constants.k_Car);
@@ -74,7 +74,7 @@ namespace Ex03.ConsoleUI
                 i_ChoosenVehicleEngineType = Console.ReadKey().KeyChar;
             }
 
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
             EnterInformation(i_VehicleLicenseNumber, i_ChoosenVehicleEngineType, i_CarOrMotorcycle);
             // line 79 replace next lines!!!!!!!!!!!!
             ////if (i_CarOrMotorcycle == Constants.k_Car)
@@ -190,7 +190,7 @@ namespace Ex03.ConsoleUI
                 i_MaxEnergyLevel = Constants.k_TruckFuelTankCapacity;
                 UI.IOpenedNewGarage.AddNewTruckCompleteInformation(i_VehicleLicenseNumber, i_VehicleModel, i_MaxEnergyLevel, i_CurrentEnergyLevel, i_TrunkIsCool, i_TrunkCapacityCC, i_FuelType);
             }
-            Ex02.ConsoleUtils.Screen.Clear();
+            Console.Clear();
             OutPutMessages.SuccessMessageDisplayMenu();
             UI.WorkingInTheGarage();
 
