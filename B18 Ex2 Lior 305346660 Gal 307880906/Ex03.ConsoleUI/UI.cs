@@ -98,20 +98,20 @@ namespace Ex03.ConsoleUI
             Console.Clear();
             if (VehicleStatusToPrint == Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.AllStatus)
             {
-                Console.WriteLine("ALL VEHICLES LICENSE NUMBERS : \n");
+                Console.WriteLine("ALL VEHICLES LICENSE NUMBER : \n");
             }
             else
             {
                 Console.WriteLine("ALL VEHICLES LICENSE NUMBERS IN STATUS {0} : \n", VehicleStatusToPrint);
             }
 
-            foreach (KeyValuePair<string, VehicleInTheGarage> i_PrintLicenseNumbers in IOpenedNewGarage.m_MyGarage)
+            foreach (KeyValuePair<string, VehicleInTheGarage> i_PrintLicenseNumbers in IOpenedNewGarage.AllVehiclesInTheGarage)
             {
                 if (VehicleStatusToPrint == Ex03.GarageLogic.VehicleInTheGarage.eVehicleStatus.AllStatus)
                 {
                     Console.WriteLine(i_PrintLicenseNumbers.Key + "\n");
                 }
-                else if(i_PrintLicenseNumbers.Value.UpdateVehicleStatus == VehicleStatusToPrint)
+                else if(i_PrintLicenseNumbers.Value.StatusInTheGarage == VehicleStatusToPrint)
                 {
                     Console.WriteLine(i_PrintLicenseNumbers.Key + "\n");
                 }
@@ -127,30 +127,30 @@ namespace Ex03.ConsoleUI
             string licenseNumberToPrintData;
             OutPutMessages.AskingForVehicleLicenseNumberDisplayMenu();
             licenseNumberToPrintData = Console.ReadLine();
+            while (IsTheInputCorrect(licenseNumberToPrintData, eInputsToCheck.LicenseNumber) == Constants.k_WrongInput)
+            { //// wrong license number input
+                OutPutMessages.AskingForVehicleLicenseNumberDisplayMenu();
+                licenseNumberToPrintData = Console.ReadLine();
+            }
+
             if (BackToPreviewScreen(licenseNumberToPrintData))
             { //// return to preview menu
                 ReceiveInformation();
-            }
-            else if (IsTheInputCorrect(licenseNumberToPrintData, eInputsToCheck.LicenseNumber) == Constants.k_WrongInput)
-            { //// wrong license number input
-                PrintAllDataForSpecificVehicle();
-            }
+            }       
             else
-            { //// license number not exist
+            {
+                //// license number not exist
                 while (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToPrintData))
-                {
-                    //// OutPutMessages.LicenseNumberNotExistMessage();
+                { //// OutPutMessages.LicenseNumberNotExistMessage();
                     Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
                     Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
                     Thread.Sleep(1500);
                     licenseNumberToPrintData = Console.ReadLine();
                 }
                 //// license number exist- lets print its information
+
+
             }
-            
-
-
-
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
@@ -189,43 +189,49 @@ namespace Ex03.ConsoleUI
             char decision;
             OutPutMessages.AskingForVehicleLicenseNumberDisplayMenu();
             licenseNumberToChangeStatus = Console.ReadLine();
+            while (IsTheInputCorrect(licenseNumberToChangeStatus, eInputsToCheck.LicenseNumber) == Constants.k_WrongInput)
+            { //// wrong license number input
+                OutPutMessages.AskingForVehicleLicenseNumberDisplayMenu();
+                licenseNumberToChangeStatus = Console.ReadLine();
+            }
+
             if (BackToPreviewScreen(licenseNumberToChangeStatus))
             {
                 UpdateVehicleData();
             }
-            else if (IsTheInputCorrect(licenseNumberToChangeStatus, eInputsToCheck.LicenseNumber) == Constants.k_WrongInput)
-            {
-                ChangeVehicleStatus();
-            }
-            else if (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToChangeStatus))
-            {
-                Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
-                Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
-                Thread.Sleep(1500);
-                ChangeVehicleStatus();
-            }
             else
             {
-                OutPutMessages.ChangeVehicleStatusDisplayMenu();
-                decision = Console.ReadKey().KeyChar;
-                while (decision != Constants.k_InProgress && decision != Constants.k_WaitingToGetPayment && decision != Constants.k_PaidAndReadyToGo && decision != Constants.k_PreviewMenu)
+                if (!IOpenedNewGarage.LicenseNumberExist(licenseNumberToChangeStatus))
                 {
-                    OutPutMessages.PrintWrongMessage();
-                    decision = Console.ReadKey().KeyChar;
-                }
-
-                if (BackToPreviewScreen(decision))
-                {
+                    Console.SetCursorPosition(Constants.k_StartPrintingMenuColumn, Constants.k_StartPrintingMenuLine + 6);
+                    Console.Write("|  THE LICENSE NUMBER YOU ENTERED NOT EXIST              |");
+                    Thread.Sleep(1500);
                     ChangeVehicleStatus();
                 }
                 else
-                { //// (decision == Constants.k_PaidAndReadyToGo)
-                    IOpenedNewGarage.UpdateVehicleStatus(licenseNumberToChangeStatus, decision);
-                    OutPutMessages.GarageUpdateStatusForExistVehicle();
-                    Thread.Sleep(1500);
-                    WorkingInTheGarage();
+                {
+                    OutPutMessages.ChangeVehicleStatusDisplayMenu();
+                    decision = Console.ReadKey().KeyChar;
+                    while (decision != Constants.k_InProgress && decision != Constants.k_WaitingToGetPayment && decision != Constants.k_PaidAndReadyToGo && decision != Constants.k_PreviewMenu)
+                    {
+                        OutPutMessages.PrintWrongMessage();
+                        decision = Console.ReadKey().KeyChar;
+                    }
+
+                    if (BackToPreviewScreen(decision))
+                    {
+                        ChangeVehicleStatus();
+                    }
+                    else
+                    { //// (decision == Constants.k_PaidAndReadyToGo)
+                        IOpenedNewGarage.UpdateVehicleStatus(licenseNumberToChangeStatus, decision);
+                        OutPutMessages.GarageUpdateStatusForExistVehicle();
+                        Thread.Sleep(1500);
+                        WorkingInTheGarage();
+                    }
                 }
-            }                                     
+            }
+                                              
         }
         
         private static void InflateVehicleWheels()
@@ -410,6 +416,7 @@ namespace Ex03.ConsoleUI
             {
                 WorkingInTheGarage();
             }
+
             else if (IsTheInputCorrect(licenseNumberToCreateVehicle, eInputsToCheck.LicenseNumber) == Constants.k_WrongInput)
             {
                 CreateNewVehicleInTheGarage();
@@ -425,6 +432,7 @@ namespace Ex03.ConsoleUI
                 IOpenedNewGarage.UpdateVehicleStatus(licenseNumberToCreateVehicle, Constants.k_InProgress);
                 WorkingInTheGarage();
             }
+
         }
 
         public static bool IsTheInputCorrect(string i_StringToCheck, eInputsToCheck i_TypeOfInput, int i_LineToPrint = 3)

@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="CreateNewVehicle.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Garage.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
